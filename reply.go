@@ -190,7 +190,7 @@ func SendScheduledNotify(userID string) {
 	message := MakeFavriteListMessage(userID)
 	switch message.(type) {
 	case *linebot.FlexMessage:
-		_, err := LineBotAPI.PushMessage(userID, message).Do()
+		_, err := LineBotAPI.PushMessage(userID, message.WithQuickReplies(CreateQuickReplyItems())).Do()
 		fmt.Printf("%v\n", err)
 	case *linebot.TextMessage:
 		//バブルコンテナの作成に失敗したときなので何もしない
