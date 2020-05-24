@@ -102,13 +102,16 @@ func CallbackHandler(w http.ResponseWriter, req *http.Request) {
 				//普通のテキストメッセージ
 				ReplyToTextMessage(event, message)
 			case *linebot.StickerMessage:
-				//スタンプらしい message.StickerID, message.StickerResourceType にスタンプの情報が入っている
+				//スタンプ
+				ReplyToStickerMessage(event, message)
 			case *linebot.LocationMessage:
 				//位置情報
 				ReplyToLocationMessage(event, message)
 			}
 		case linebot.EventTypeFollow:
+			ReplyToFollowEvent(event)
 		case linebot.EventTypeUnfollow:
+			fmt.Printf("%v\n", event)
 		case linebot.EventTypePostback:
 			// Postbackのコマンド振り分け
 			switch command := ParsePostbackData(event.Postback.Data); command.Type {

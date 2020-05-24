@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -14,6 +15,14 @@ func ReplyMessage(replyToken string, message linebot.SendingMessage) error {
 		ReplyMessage(replyToken, linebot.NewTextMessage(err.Error()))
 	}
 	return err
+}
+
+//ReplyToFollowEvent フォローされたとき
+func ReplyToFollowEvent(event *linebot.Event) {
+	//ユーザー登録
+	UpdateUserConfig(UserUpdateTypeUserAdd, event.Source.UserID, "")
+	//返信
+	ReplyMessage(event.ReplyToken, linebot.NewTextMessage("フォローありがとうございます！\n駐輪場の名前を入力してみてください"))
 }
 
 //ReplyToTextMessage テキストメッセージへの返信
@@ -35,6 +44,15 @@ func ReplyToTextMessage(event *linebot.Event, message *linebot.TextMessage) {
 
 	// 検索履歴登録
 	UpdateUserConfig(UserUpdateTypeHistory, event.Source.UserID, text)
+}
+
+//ReplyToStickerMessage スタンプへの返信
+func ReplyToStickerMessage(event *linebot.Event, message *linebot.StickerMessage) {
+	fmt.Printf("StickerID=%s\n", message.StickerID)
+	replyToken := event.ReplyToken
+	//適当なスタンプを返す
+	reply := linebot.NewStickerMessage("11537", "52002734")
+	ReplyMessage(replyToken, reply)
 }
 
 //ReplyToLocationMessage 位置情報メッセージへの返信

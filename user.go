@@ -10,6 +10,8 @@ import (
 type UserUpdateType string
 
 const (
+	//UserUpdateTypeUserAdd ユーザー追加
+	UserUpdateTypeUserAdd UserUpdateType = "a_user"
 	//UserUpdateTypeHistory 履歴
 	UserUpdateTypeHistory UserUpdateType = "u_history"
 	//UserUpdateTypeFavorite お気に入り
@@ -57,9 +59,11 @@ func UpdateUserConfig(updateType UserUpdateType, UsaerID string, value string) {
 	//ユーザー設定を取得
 	user := GetUserConfigFromCache(UsaerID)
 	if user == nil {
-		user = &bikeshareapi.Users{}
+		user = &bikeshareapi.Users{LineID: UsaerID}
 	}
 	switch updateType {
+	case UserUpdateTypeUserAdd:
+		//なにもしない
 	case UserUpdateTypeHistory:
 		user.Histories = AddList(user.Histories, value, MaxHistory)
 	case UserUpdateTypeNotify:
