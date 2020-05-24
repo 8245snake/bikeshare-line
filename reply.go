@@ -184,3 +184,16 @@ func ReplyToPostbackNotifyConfig(event *linebot.Event, command *PostBackCommand)
 	//返信
 	ReplyMessage(event.ReplyToken, reply)
 }
+
+//SendScheduledNotify 通知を送信する
+func SendScheduledNotify(userID string) {
+	message := MakeFavriteListMessage(userID)
+	switch message.(type) {
+	case *linebot.FlexMessage:
+		_, err := LineBotAPI.PushMessage(userID, message).Do()
+		fmt.Printf("%v\n", err)
+	case *linebot.TextMessage:
+		//バブルコンテナの作成に失敗したときなので何もしない
+		return
+	}
+}

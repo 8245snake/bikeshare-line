@@ -154,6 +154,15 @@ func CallbackHandler(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+//NotifyHandler 通知指示
+func NotifyHandler(w http.ResponseWriter, req *http.Request) {
+	//パース
+	req.ParseForm()
+	params := req.Form
+	userID := params.Get("user")
+	SendScheduledNotify(userID)
+}
+
 //GetPlaceNameByCode コードから名前を返す
 //ない場合は空文字を返す
 func GetPlaceNameByCode(code string) (name string) {
@@ -210,6 +219,7 @@ func main() {
 	}
 
 	http.HandleFunc("/callback", CallbackHandler)
+	http.HandleFunc("/notify", NotifyHandler)
 
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal(err)
