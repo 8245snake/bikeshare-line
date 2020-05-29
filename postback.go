@@ -49,7 +49,7 @@ const (
 	//PostBackCommandTypeTimePicker 時刻情報送信
 	PostBackCommandTypeTimePicker PostBackCommandType = "time"
 	//PostBackCommandTypeConfigOpen 設定画面表示
-	PostBackCommandTypeConfigOpen PostBackCommandType = "configOpen"
+	PostBackCommandTypeConfigOpen PostBackCommandType = "config"
 	//PostBackCommandTypeConfigMod 設定変更
 	PostBackCommandTypeConfigMod PostBackCommandType = "configModify"
 	//PostBackCommandTypeNotify 通知時刻編集

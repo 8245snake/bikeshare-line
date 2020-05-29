@@ -19,9 +19,9 @@ func MakeConfirmMessage() *linebot.TemplateMessage {
 //CreateQuickReplyItems クイックリプライを作成
 func CreateQuickReplyItems() *linebot.QuickReplyItems {
 	items := linebot.NewQuickReplyItems()
-	items.Items = append(items.Items, linebot.NewQuickReplyButton("https://i.imgur.com/UdEkcB7.png", linebot.NewPostbackAction("お気に入り", GetPostbackDataFavoriteList(), "", "")))
-	items.Items = append(items.Items, linebot.NewQuickReplyButton("https://i.imgur.com/A5au5SF.png", linebot.NewPostbackAction("履歴", GetPostbackDataForHistory(), "", "")))
-	items.Items = append(items.Items, linebot.NewQuickReplyButton("https://i.imgur.com/UdEkcB7.png", linebot.NewPostbackAction("コマンド", GetPostbackDataForCommands(), "", "")))
+	// items.Items = append(items.Items, linebot.NewQuickReplyButton("https://i.imgur.com/UdEkcB7.png", linebot.NewPostbackAction("お気に入り", GetPostbackDataFavoriteList(), "", "")))
+	// items.Items = append(items.Items, linebot.NewQuickReplyButton("https://i.imgur.com/A5au5SF.png", linebot.NewPostbackAction("履歴", GetPostbackDataForHistory(), "", "")))
+	// items.Items = append(items.Items, linebot.NewQuickReplyButton("https://i.imgur.com/UdEkcB7.png", linebot.NewPostbackAction("コマンド", GetPostbackDataForCommands(), "", "")))
 	items.Items = append(items.Items, linebot.NewQuickReplyButton("", linebot.NewLocationAction("位置情報で検索")))
 	return items
 }

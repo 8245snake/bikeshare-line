@@ -9,7 +9,8 @@ import (
 
 //ReplyMessage 返信用共通関数
 func ReplyMessage(replyToken string, message linebot.SendingMessage) error {
-	_, err := LineBotAPI.ReplyMessage(replyToken, message.WithQuickReplies(CreateQuickReplyItems())).Do()
+	//_, err := LineBotAPI.ReplyMessage(replyToken, message.WithQuickReplies(CreateQuickReplyItems())).Do()
+	_, err := LineBotAPI.ReplyMessage(replyToken, message).Do()
 	if err != nil {
 		//だめかもしれないけどとりあえずエラーメッセージの再送を試みる
 		ReplyMessage(replyToken, linebot.NewTextMessage(err.Error()))
@@ -40,10 +41,10 @@ func ReplyToTextMessage(event *linebot.Event, message *linebot.TextMessage) {
 		//その他のメッセージは駐輪場検索とする
 		reply := MakeSpotListMessage(text)
 		ReplyMessage(replyToken, reply)
-	}
 
-	// 検索履歴登録
-	UpdateUserConfig(UserUpdateTypeHistory, event.Source.UserID, text)
+		// 検索履歴は駐輪場検索のみ保存する
+		UpdateUserConfig(UserUpdateTypeHistory, event.Source.UserID, text)
+	}
 }
 
 //ReplyToStickerMessage スタンプへの返信
@@ -190,7 +191,8 @@ func SendScheduledNotify(userID string) {
 	message := MakeFavriteListMessage(userID)
 	switch message.(type) {
 	case *linebot.FlexMessage:
-		_, err := LineBotAPI.PushMessage(userID, message.WithQuickReplies(CreateQuickReplyItems())).Do()
+		//_, err := LineBotAPI.PushMessage(userID, message.WithQuickReplies(CreateQuickReplyItems())).Do()
+		_, err := LineBotAPI.PushMessage(userID, message).Do()
 		fmt.Printf("%v\n", err)
 	case *linebot.TextMessage:
 		//バブルコンテナの作成に失敗したときなので何もしない

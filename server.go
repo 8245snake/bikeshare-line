@@ -135,10 +135,6 @@ func CallbackHandler(w http.ResponseWriter, req *http.Request) {
 				ReplyToPostbackServiceStatus(event, &command)
 			case PostBackCommandTypeRanking:
 				ReplyToPostbackRanking(event, &command)
-			case PostBackCommandTypeConfigMod:
-				fmt.Printf("%v\n", command)
-			case PostBackCommandTypeTimePicker:
-				fmt.Printf("%v\n", command)
 			}
 
 		case linebot.EventTypeJoin:
