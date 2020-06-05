@@ -9,7 +9,7 @@
 		},
 		{
 			"ImportPath": "github.com/8245snake/bikeshare_api/src/lib/static",
-			"Rev": "ad9f52e5ea0afe953f36a685aad09131a4fa5f10"
+			"Rev": "8fa14651b4f52ad9f5878e38ebd6197a24e416b1"
 		},
 		{
 			"ImportPath": "github.com/line/line-bot-sdk-go/linebot",
