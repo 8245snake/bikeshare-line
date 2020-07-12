@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -179,6 +180,10 @@ func SplitAreaSpot(code string) (area string, spot string) {
 }
 
 func init() {
+	//SSL証明書エラーを無視する
+	Client.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
 	ClientID = os.Getenv("LINE_CLIENT_ID")
 	ClientSecret = os.Getenv("LINE_CLIENT_SECRET")
 	AccessToken = getAccessToken()
